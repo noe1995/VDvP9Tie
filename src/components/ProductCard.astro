@@ -1,0 +1,52 @@
+---
+interface Props {
+	id: number;
+	name: string;
+	price: number;
+	image: string;
+	category: string;
+	brand: string;
+}
+
+const { id, name, price, image, category, brand } = Astro.props;
+---
+
+<div class="product-card" data-category={category} data-brand={brand} data-price={price}>
+	<img src={image} alt={name} />
+	<h2>{name}</h2>
+	<p class="price">${price.toFixed(2)}</p>
+	<p class="category">{category}</p>
+	<p class="brand">{brand}</p>
+	<a href={`/products/${id}`}>View Details</a>
+</div>
+
+<style>
+	.product-card {
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		padding: 1rem;
+		text-align: center;
+		background-color: white;
+	}
+	.product-card img {
+		max-width: 100%;
+		height: auto;
+	}
+	.product-card a {
+		display: inline-block;
+		background-color: #333;
+		color: white;
+		padding: 0.5rem 1rem;
+		text-decoration: none;
+		border-radius: 4px;
+		margin-top: 1rem;
+	}
+	.price {
+		font-weight: bold;
+		color: #e44d26;
+	}
+	.category, .brand {
+		color: #666;
+		font-size: 0.9rem;
+	}
+</style>

@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import FilterSidebar from '../../components/FilterSidebar.astro';
+
+const products = [
+	{ id: 1, name: 'Laptop', price: 999.99, image: 'https://via.placeholder.com/200', category: 'Electronics', brand: 'TechBrand' },
+	{ id: 2, name: 'Smartphone', price: 499.99, image: 'https://via.placeholder.com/200', category: 'Electronics', brand: 'PhoneCo' },
+	{ id: 3, name: 'Headphones', price: 99.99, image: 'https://via.placeholder.com/200', category: 'Electronics', brand: 'AudioTech' },
+	{ id: 4, name: 'T-shirt', price: 19.99, image: 'https://via.placeholder.com/200', category: 'Clothing', brand: 'FashionWear' },
+	{ id: 5, name: 'Jeans', price: 49.99, image: 'https://via.placeholder.com/200', category: 'Clothing', brand: 'DenimCo' },
+	{ id: 6, name: 'Sneakers', price: 79.99, image: 'https://via.placeholder.com/200', category: 'Footwear', brand: 'SportyFeet' },
+];
+
+const categories = [...new Set(products.map(product => product.category))];
+const brands = [...new Set(products.map(product => product.brand))];
+const priceRanges = [
+	{ min: 0, max: 50, label: 'Under $50' },
+	{ min: 50, max: 100, label: '$50 - $100' },
+	{ min: 100, max: 500, label: '$100 - $500' },
+	{ min: 500, max: Infinity, label: 'Over $500' },
+];
+---
+
+<Layout title="Our Products">
+	<div class="products-container">
+		<FilterSidebar categories={categories} brands={brands} priceRanges={priceRanges} />
+		<div class="products-content">
+			<h1>Our Products</h1>
+			<div class="product-grid">
+				{products.map((product) => (
+					<ProductCard {...product} />
+				))}
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.products-container {
+		display: flex;
+		gap: 2rem;
+	}
+	.products-content {
+		flex: 1;
+	}
+	h1 {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+	.product-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 2rem;
+	}
+</style>
+
+<script src="../../scripts/productFilter.js"></script>

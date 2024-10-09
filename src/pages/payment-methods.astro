@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const paymentMethods = [
+	{ id: 'credit-card', name: 'Credit Card', icon: '💳' },
+	{ id: 'paypal', name: 'PayPal', icon: '🅿️' },
+	{ id: 'bank-transfer', name: 'Bank Transfer', icon: '🏦' },
+	{ id: 'crypto', name: 'Cryptocurrency', icon: '₿' },
+];
+---
+
+<Layout title="Payment Methods">
+	<h1>Choose Payment Method</h1>
+	<div class="payment-methods">
+		{paymentMethods.map(method => (
+			<button class="payment-method" data-id={method.id}>
+				<span class="icon">{method.icon}</span>
+				<span class="name">{method.name}</span>
+			</button>
+		))}
+	</div>
+</Layout>
+
+<style>
+	h1 {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+	.payment-methods {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1rem;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+	.payment-method {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 1rem;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+	.payment-method:hover {
+		background-color: #f0f0f0;
+	}
+	.icon {
+		font-size: 2rem;
+		margin-bottom: 0.5rem;
+	}
+	.name {
+		font-weight: bold;
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const paymentMethods = document.querySelectorAll('.payment-method');
+		paymentMethods.forEach(method => {
+			method.addEventListener('click', () => {
+				const methodId = method.dataset.id;
+				alert(`You selected ${method.querySelector('.name').textContent} as your payment method. In a real application, this would proceed to the specific payment process.`);
+				// Here you would typically redirect to a specific payment processing page or open a payment modal
+			});
+		});
+	});
+</script>
